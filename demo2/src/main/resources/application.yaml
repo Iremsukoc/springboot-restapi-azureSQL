@@ -1,0 +1,48 @@
+openapi: 3.0.2
+info:
+  title: API Project For Hotel Reservation
+  description: API for display available hotels, make reservation.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local server
+  - url: https://airlinemanagmentsystem.azurewebsites.net/
+    description: Production server
+tags:
+  - name: Hotel
+    description: Hotel
+  - name: Reservation
+    description: Reservation
+paths:
+  /report/hotels-with-parameters/{pageNo}/{recordCount}:
+    post:
+      summary: Get hotels with parameters
+      tags:
+        - Hotel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: int
+                  required: true
+                fromDate:
+                  type: Date
+                  required: true
+                numberOfPeople:
+                  type: int
+                  required: true
+                city:
+                  type: String
+                  required: true
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
