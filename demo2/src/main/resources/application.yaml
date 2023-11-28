@@ -1,48 +1,339 @@
-openapi: 3.0.2
+openapi: 3.0.0
 info:
-  title: API Project For Hotel Reservation
-  description: API for display available hotels, make reservation.
+  title: Hotel Reservation API
+  description: REST API for managing hotel reservations
   version: 1.0.0
+
 servers:
-  - url: http://localhost:3000
-    description: Local server
-  - url: https://airlinemanagmentsystem.azurewebsites.net/
-    description: Production server
-tags:
-  - name: Hotel
-    description: Hotel
-  - name: Reservation
-    description: Reservation
+  - url: http://localhost:8082
+
+
 paths:
-  /report/hotels-with-parameters/{pageNo}/{recordCount}:
+  /hotels/{pageNo}/{recordCount}:
+    get:
+      summary: Get hotels
+      tags:
+        - hotel
+      parameters:
+        - name: pageNo
+          in: path
+          description: Page number
+          required: true
+          schema:
+            type: integer
+        - name: recordCount
+          in: path
+          description: Record count per page
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - hotelID: 1
+                  description: "Merkeze yakın, temiz"
+                  amenities: "Wifi, Otopark"
+                  city: "Istanbul"
+
+  /hotels-with-parameters/{pageNo}/{recordCount}:
     post:
       summary: Get hotels with parameters
       tags:
-        - Hotel
+        - hotel
+      parameters:
+        - name: pageNo
+          in: path
+          description: Page number
+          required: true
+          schema:
+            type: integer
+        - name: recordCount
+          in: path
+          description: Record count per page
+          required: true
+          schema:
+            type: integer
       requestBody:
+        description: Request parameters
         required: true
         content:
           application/json:
-            schema:
-              type: object
-              properties:
-                date:
-                  type: int
-                  required: true
-                fromDate:
-                  type: Date
-                  required: true
-                numberOfPeople:
-                  type: int
-                  required: true
-                city:
-                  type: String
-                  required: true
+            example:
+              date: 1
+              fromDate: "2023-01-01"
+              toDate: "2023-01-10"
+              numberOfPeople: 2
+              city: "Istanbul"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - hotelID: 1
+                  description: "Merkeze yakın, temiz"
+                  amenities: "Wifi, Otopark"
+                  city: "Istanbul"
+  /delete-hotel-by-id:
+    delete:
+      summary: Delete hotel by ID
+      tags:
+        - hotel
+      parameters:
+        - name: hotelID
+          in: query
+          description: ID of the hotel
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                status: "OK"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                status: "Not Deleted"
+
+
+  /reservations/{pageNo}/{recordCount}:
+    get:
+      summary: Get all reservations
+      tags:
+        - reservation
+      parameters:
+        - name: pageNo
+          in: path
+          description: Page number
+          required: true
+          schema:
+            type: integer
+        - name: recordCount
+          in: path
+          description: Record count per page
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - reservationID: 1
+                  hotelID: 123
+                  date: 4
+                  checkIn: "2023-01-01"
+                  checkOut: "2023-01-05"
+                  guestNames: "John Doe"
+                  guestNumber: 2
+                - reservationID: 2
+                  hotelID: 18
+                  date: 5
+                  checkIn: "2023-01-15"
+                  checkOut: "2023-01-20"
+                  guestNames: "Jane Doe"
+                  guestNumber: 3
+        '400':
+          description: Bad Request
+
+  /reservations-by-id:
+    get:
+      summary: Get reservation by ID
+      tags:
+        - reservation
+      parameters:
+        - name: id
+          in: query
+          description: ID of the reservation
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                reservationID: 1
+                checkIn: "2023-12-01"
+                checkOut: "2023-12-05"
+                date: 4
+                guestNames: "John Doe"
+        '404':
+          description: Reservation not found
+          content:
+            application/json:
+              example:
+                status: "Not Found"
+
+
+  /delete-reservation-by-id:
+    delete:
+      summary: Delete reservation by ID
+      tags:
+        - reservation
+      parameters:
+        - name: reservationID
+          in: query
+          description: ID of the reservation
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                status: "OK"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                status: "Not Deleted"
+
+
+  /make-reservation:
+    post:
+      summary: Make reservation
+      tags:
+        - reservation
+      requestBody:
+        description: Reservation details
+        required: true
+        content:
+          application/json:
+            example:
+              hotelID: 1
+              date: 3
+              fromDate: "2023-11-27"
+              toDate: "2023-11-30"
+              travelerNameList:
+                - John Doe
+                - Jane Doe
+
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                status: "OK"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                status: "Not Added"
 
 
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+  schemas:
+    Hotel:
+      type: object
+      properties:
+        hotelID:
+          type: integer
+        description:
+          type: string
+        totalDay:
+          type: integer
+        availableFrom:
+          type: string
+          format: date
+        availableTo:
+          type: string
+          format: date
+        amenities:
+          type: string
+        city:
+          type: string
+        guest_capacity:
+          type: integer
+
+    Traveler:
+      type: object
+      properties:
+        travelerID:
+          type: integer
+        username:
+          type: string
+        password:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+    Reservation:
+      type: object
+      properties:
+        reservationID:
+          type: integer
+          description: Long ID of the reservation
+        hotelID:
+          type: integer
+          description: Long ID of the hotel related to the reservation
+        date:
+          type: integer
+          description: The date of the reservation
+        checkIn:
+          type: string
+          format: date
+          description: The check-in date of the reservation
+        checkOut:
+          type: string
+          format: date
+          description: The check-out date of the reservation
+        guestNames:
+          type: string
+          description: List<String> names of the guests for the reservation
+        guestNumber:
+          type: integer
+          description: Number of guests for the reservation
+    HotelDTO:
+      type: object
+      properties:
+        hotelID:
+          type: integer
+        description:
+          type: string
+        amenities:
+          type: string
+        city:
+          type: string
+    QueryRequestDTO:
+      type: object
+      properties:
+        date:
+          type: integer
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
+        numberOfPeople:
+          type: integer
+        city:
+          type: string
+    HotelidDTO:
+      type: object
+      properties:
+        hotelID:
+          type: integer
+
+    BookingResponseDTO:
+      type: object
+      properties:
+        status:
+          type: string
