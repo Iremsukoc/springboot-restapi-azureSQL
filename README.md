@@ -327,7 +327,7 @@ To differentiate between these hotels, the decision was made to include the hote
 
 **Description:**
 
-When attempting to access the Swagger UI documentation, a "Whitelabel Error Page" is encountered.  OpenAI sayesinde application.yaml da yazdığım swagger kodu sayesinde aslında endpointleri görebileceğiniz ve deneyebileceğiniz bir alan yaratıldı. Ancak anlaşılır gelmediyse Swagger'ın kendi sayfasında application.yaml dosyasının içindeki kodu kopyalayıp yapıştırarak daha iyi bir görsele sahip olabilirsiniz.
+When attempting to access the Swagger UI documentation, a "Whitelabel Error Page" is encountered. Thanks to OpenAI, thanks to the swagger code I wrote in application.yaml, an area where you can actually see and try endpoints has been created. However, if it is not clear, you can get a better visual by copying and pasting the code in the application.yaml file on Swagger's own page.
 
 
 <br><br>
