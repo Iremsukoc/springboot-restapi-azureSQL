@@ -11,6 +11,8 @@ This Java-based Spring Boot project allows you to create and manage hotel reserv
 - [Requirements](#requirements)
 - [Project Structure](#project-structure)
 - [API Routes](#api-routes)
+- [Database](#database)
+   - [ER Diagram](#er-diagram)
 
 
  ## Project Overview
@@ -260,3 +262,47 @@ The project is structured using the Model-View-Controller (MVC) pattern, providi
     {
       "status": "Not Added"
     }
+<br><br>
+
+## Database
+This project uses three main tables to store basic information about hotel reservations. Microsoft Azure uses SQL Server database.
+
+### Hotel Table
+
+| Column Name       | Data Type          | 
+| :---:             | :---:              | 
+| hotelID           | bigint (Identity)  | 
+| description       | nvarchar(max)      | 
+| totalDay          | int                | 
+| availableFrom     | date               | 
+| availableTo       | date               | 
+| amenities         | nvarchar(max)      | 
+| city              | nvarchar(max)      | 
+| guest_capacity    | int                | 
+
+### Reservation Table
+
+| Column Name       | Data Type          | 
+| :---:             | :---:              | 
+| reservationID     | bigint (Identity)  | 
+| hotelID           | bigint             | 
+| date              | int                | 
+| checkIn           | date               | 
+| checkOut          | date               | 
+| guestNames        | nvarchar(max)      | 
+| guestNumber       | int                | 
+
+### Traveler Table
+
+| Column Name       | Data Type          | 
+| :---:             | :---:              | 
+| travelerID        | bigint (Identity)  | 
+| username          | nvarchar(max)      | 
+| password          | nvarchar(max)      | 
+| firstName         | nvarchar(max)      | 
+| lastName          | nvarchar(max)      | 
+
+
+
+
+
