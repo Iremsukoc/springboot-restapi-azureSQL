@@ -13,6 +13,7 @@ This Java-based Spring Boot project allows you to create and manage hotel reserv
 - [API Routes](#api-routes)
 - [Database](#database)
    - [ER Diagram](#er-diagram)
+- [Dependencies](#dependencies)
 
 
  ## Project Overview
@@ -304,5 +305,15 @@ This project uses three main tables to store basic information about hotel reser
 
 
 
+<br><br>
 
+## Dependencies
+
+- **Spring Boot Starter Data JPA**: Simplifies data access using JPA with Spring Data repositories.
+- **Spring Boot Starter Web**: Provides essential web components for a Spring Boot application.
+- **Lombok**: Reduces boilerplate code in Java classes by providing annotations.
+- **Microsoft SQL Server JDBC Driver**: Allows interaction with SQL Server databases.
+- **Springfox Swagger**: Generates Swagger documentation for Spring Boot applications.
+- **Springdoc OpenAPI UI**: Provides an OpenAPI UI for easy API visualization and interaction.
+- **javax.servlet-api**: Java Servlet API for handling HTTP requests and responses.
 
