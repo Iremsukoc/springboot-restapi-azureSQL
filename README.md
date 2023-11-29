@@ -13,6 +13,8 @@ This Java-based Spring Boot project allows you to create and manage hotel reserv
 - [API Routes](#api-routes)
 - [Database](#database)
    - [ER Diagram](#er-diagram)
+- [Assumption](#assumption)
+- [Issues](#issues)
 - [Dependencies](#dependencies)
 
 
@@ -303,6 +305,29 @@ This project uses three main tables to store basic information about hotel reser
 | firstName         | nvarchar(max)      | 
 | lastName          | nvarchar(max)      | 
 
+
+#### ER Diagram 
+Below is a simple Entity-Relationship (ER) diagram showing the database structure of the project:
+
+![ER Diagram](demo2/docs/ERDiagram.png)
+
+
+<br><br>
+
+## Assumption
+**Reservation Considerations:**
+
+In the context of reservations, it's assumed that multiple hotels in the same city may have similar capacities and amenities.
+To differentiate between these hotels, the decision was made to include the hotel ID when making a reservation.
+
+<br><br>
+
+## Issues
+**Issue: Whitelabel Error in Swagger UI**
+
+**Description:**
+
+When attempting to access the Swagger UI documentation, a "Whitelabel Error Page" is encountered.  OpenAI sayesinde application.yaml da yazdığım swagger kodu sayesinde aslında endpointleri görebileceğiniz ve deneyebileceğiniz bir alan yaratıldı. Ancak anlaşılır gelmediyse Swagger'ın kendi sayfasında application.yaml dosyasının içindeki kodu kopyalayıp yapıştırarak daha iyi bir görsele sahip olabilirsiniz.
 
 
 <br><br>
